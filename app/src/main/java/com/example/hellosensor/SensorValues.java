@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.content.Intent;
 import android.widget.Button;
-
+import java.lang.Math;
 public class SensorValues extends AppCompatActivity implements SensorEventListener {
 
     private SensorManager mSensorManager;
@@ -21,9 +21,9 @@ public class SensorValues extends AppCompatActivity implements SensorEventListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor_values);
 
-        xTextView = (TextView) findViewById(R.id.sensor_values_x);
-        yTextView = (TextView) findViewById(R.id.sensor_values_y);
-        zTextView = (TextView) findViewById(R.id.sensor_values_z);
+        xTextView = findViewById(R.id.sensor_values_x);
+        yTextView = findViewById(R.id.sensor_values_y);
+        zTextView = findViewById(R.id.sensor_values_z);
 
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -40,14 +40,12 @@ public class SensorValues extends AppCompatActivity implements SensorEventListen
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            float x = event.values[0];
-            float y = event.values[1];
-            float z = event.values[2];
-            xTextView.setText("X: " + x);
-            xTextView.setText("Y: " + y);
-            xTextView.setText("Z: " + z);
-        }
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        xTextView.setText("X: " + Math.round(x));
+        yTextView.setText("Y: " + Math.round(y));
+        zTextView.setText("Z: " + Math.round(z));
     }
 
     @Override
